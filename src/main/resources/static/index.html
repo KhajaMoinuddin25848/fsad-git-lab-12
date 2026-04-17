@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Axios CRUD Demo</title>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+
+<h2>User Management using Axios</h2>
+
+<label>Name:</label>
+<input type="text" id="name" placeholder="Enter Name">
+
+<br><br>
+
+<label>Email:</label>
+<input type="text" id="email" placeholder="Enter Email">
+
+<br><br>
+
+<button onclick="createUser()">Create User</button>
+<button onclick="getUsers()">Get Users</button>
+<button onclick="updateUser()">Update User</button>
+<button onclick="deleteUser()">Delete User</button>
+
+<br><br>
+
+<h3>Output</h3>
+<div id="result"></div>
+
+<script>
+
+const API = "http://localhost:8080/users";
+
+
+// CREATE USER
+function createUser(){
+
+axios.post(API,{
+
+name:document.getElementById("name").value,
+email:document.getElementById("email").value
+
+})
+
+.then(response=>{
+
+document.getElementById("result").innerHTML="User Created Successfully";
+
+console.log(response.data);
+
+})
+
+.catch(error=>{
+
+console.log(error);
+
+});
+
+}
+
+
+
+// READ USERS
+function getUsers(){
+
+axios.get(API)
+
+.then(response=>{
+
+document.getElementById("result").innerHTML=
+JSON.stringify(response.data,null,2);
+
+})
+
+.catch(error=>{
+
+console.log(error);
+
+});
+
+}
+
+
+
+// UPDATE USER
+function updateUser(){
+
+axios.put(API+"/1",{
+
+name:"Updated Name",
+email:"updated@gmail.com"
+
+})
+
+.then(response=>{
+
+document.getElementById("result").innerHTML="User Updated";
+
+})
+
+.catch(error=>{
+
+console.log(error);
+
+});
+
+}
+
+
+
+// DELETE USER
+function deleteUser(){
+
+axios.delete(API+"/3")
+
+.then(response=>{
+
+document.getElementById("result").innerHTML="User Deleted";
+
+})
+
+.catch(error=>{
+
+console.log(error);
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
